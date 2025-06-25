@@ -6,8 +6,14 @@ part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(CartInitial()) {
-    on<CartEvent>((event, emit) {
-      // TODO: implement event handler
+    on<CartInitialEvent>((event, emit) {
+      emit(CartInitial());
     });
+
+    on<CartPaymentButtonEvent>(
+      (event, emit) {
+        emit(CartPaymentViewNavigateState());
+      },
+    );
   }
 }
