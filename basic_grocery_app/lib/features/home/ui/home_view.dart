@@ -1,5 +1,6 @@
 import 'package:basic_grocery_app/features/cart/ui/cart_view.dart';
 import 'package:basic_grocery_app/features/home/bloc/home_bloc.dart';
+import 'package:basic_grocery_app/features/home/ui/product_card_widget.dart';
 import 'package:basic_grocery_app/features/wishlist/ui/wishlist_view.dart';
 import 'package:basic_grocery_app/utils/app_bar_build.dart';
 import 'package:basic_grocery_app/utils/app_navigator.dart';
@@ -21,6 +22,7 @@ class _HomeViewState extends State<HomeView> {
     // TODO: implement initState
     super.initState();
     homeBloc.add(HomeInitialEvent());
+    homeBloc.add(LoadGroceryDataEvent());
   }
 
   @override
@@ -37,25 +39,36 @@ class _HomeViewState extends State<HomeView> {
         }
       },
       builder: (context, state) {
-        return AppScaffold(
-          appBar: AppBarBuild(
-            title: "Grocery App Home",
-            icon1: Icons.favorite_border,
-            icon2: Icons.shopping_cart,
-            onPressed1: () {
-              homeBloc.add(HomeWishListNavigationButtonEvent());
-            },
-            onPressed2: () {
-              homeBloc.add(HomeCartListNavigationButtonEvent());
-            },
-          ),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(child: Text("Noting Yet")),
-            ],
-          ),
-        );
+        switch (state.runtimeType) {
+          case HomeLoadingState:
+            return Scaffold(body: Center(child: CircularProgressIndicator()));
+          case GroceryLoadSuccessState:
+            final successState = state as GroceryLoadSuccessState;
+            return AppScaffold(
+              appBar: AppBarBuild(
+                title: "Grocery App Home",
+                icon1: Icons.favorite_border,
+                icon2: Icons.shopping_cart,
+                onPressed1: () {
+                  homeBloc.add(HomeWishListNavigationButtonEvent());
+                },
+                onPressed2: () {
+                  homeBloc.add(HomeCartListNavigationButtonEvent());
+                },
+              ),
+              body: ListView.builder(
+                itemCount: successState.products.length,
+                itemBuilder: (context, index) {
+                  return ProductCard(
+                    product: successState.products[index],
+                    homeBloc: homeBloc,
+                  );
+                },
+              ),
+            );
+          default:
+            return SizedBox();
+        }
       },
     );
   }

@@ -8,3 +8,5 @@ class HomeInitialEvent extends HomeEvent {}
 class HomeWishListNavigationButtonEvent extends HomeEvent {}
 
 class HomeCartListNavigationButtonEvent extends HomeEvent {}
+
+class LoadGroceryDataEvent extends HomeEvent {}

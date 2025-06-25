@@ -1,3 +1,5 @@
+import 'package:basic_grocery_app/data/grocery_data.dart';
+import 'package:basic_grocery_app/features/home/model/product_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -6,8 +8,25 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
-    on<HomeInitialEvent>((event, emit) {
+    on<HomeInitialEvent>((event, emit) async {
       emit(HomeInitial());
+    });
+
+    on<LoadGroceryDataEvent>((event, emit) async {
+      emit(HomeLoadingState()); // Show loading UI immediately
+      await Future.delayed(Duration(seconds: 2));
+      emit(GroceryLoadSuccessState(
+          products: GroceryData.groceryProducts
+              .map(
+                (e) => ProductDataModel(
+                  id: e['id'],
+                  name: e['name'],
+                  description: e['description'],
+                  price: e['price'],
+                  imageUrl: e['imageUrl'],
+                ),
+              )
+              .toList()));
     });
 
     on<HomeWishListNavigationButtonEvent>((event, emit) {
