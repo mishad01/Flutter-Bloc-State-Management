@@ -4,7 +4,7 @@ import 'package:basic_grocery_app/features/home/ui/product_card_widget.dart';
 import 'package:basic_grocery_app/features/wishlist/ui/wishlist_view.dart';
 import 'package:basic_grocery_app/utils/app_bar_build.dart';
 import 'package:basic_grocery_app/utils/app_navigator.dart';
-import 'package:basic_grocery_app/utils/app_scaffol.dart';
+import 'package:basic_grocery_app/utils/app_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,7 +22,7 @@ class _HomeViewState extends State<HomeView> {
     // TODO: implement initState
     super.initState();
     homeBloc.add(HomeInitialEvent());
-    homeBloc.add(LoadGroceryDataEvent());
+    homeBloc.add(HomeLoadGroceryDataEvent());
   }
 
   @override
@@ -36,6 +36,22 @@ class _HomeViewState extends State<HomeView> {
           AppNavigator.pushTo(context, WishlistView());
         } else if (state is HomeCartListNavigateState) {
           AppNavigator.pushTo(context, CartView());
+        } else if (state is HomeAddProductToCartListState) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              'Item added to cart',
+              style: TextStyle(color: Colors.black),
+            ),
+            backgroundColor: Colors.green,
+          ));
+        } else if (state is HomeAddProductToWishListState) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              'Item added to wish list',
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Colors.green,
+          ));
         }
       },
       builder: (context, state) {

@@ -1,5 +1,6 @@
+import 'package:basic_grocery_app/features/cart/ui/cart_card_widget.dart';
 import 'package:basic_grocery_app/utils/app_bar_build.dart';
-import 'package:basic_grocery_app/utils/app_scaffol.dart';
+import 'package:basic_grocery_app/utils/app_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,6 +21,7 @@ class _CartViewState extends State<CartView> {
   void initState() {
     super.initState();
     cartBloc.add(CartInitialEvent());
+    cartBloc.add(CartItemFetchEvent());
   }
 
   @override
@@ -34,22 +36,26 @@ class _CartViewState extends State<CartView> {
         }
       },
       builder: (context, state) {
-        return AppScaffold(
-          appBar: AppBarBuild(
-            title: "Cart",
-          ),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(child: Text("Noting Yet")),
-              ElevatedButton(
-                  onPressed: () {
-                    cartBloc.add(CartPaymentButtonEvent());
-                  },
-                  child: Text("Proceed to payment")),
-            ],
-          ),
-        );
+        switch (state.runtimeType) {
+          case CartSuccessState:
+            final successState = state as CartSuccessState;
+            return AppScaffold(
+              appBar: AppBarBuild(
+                title: "Cart",
+              ),
+              body: ListView.builder(
+                itemCount: successState.cartItems.length,
+                itemBuilder: (context, index) {
+                  return CartCard(
+                    product: successState.cartItems[index],
+                    cartBloc: cartBloc,
+                  );
+                },
+              ),
+            );
+          default:
+        }
+        return SizedBox();
       },
     );
   }

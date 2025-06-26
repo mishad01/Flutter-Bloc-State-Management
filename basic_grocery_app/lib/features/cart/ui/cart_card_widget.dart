@@ -1,15 +1,15 @@
-import 'package:basic_grocery_app/features/home/bloc/home_bloc.dart';
+import 'package:basic_grocery_app/features/cart/bloc/cart_bloc.dart';
 import 'package:basic_grocery_app/features/home/model/product_model.dart';
 import 'package:flutter/material.dart';
 
-class ProductCard extends StatelessWidget {
+class CartCard extends StatelessWidget {
   final ProductDataModel product;
-  final HomeBloc homeBloc;
+  final CartBloc cartBloc;
 
-  const ProductCard({
+  const CartCard({
     super.key,
     required this.product,
-    required this.homeBloc,
+    required this.cartBloc,
   });
 
   @override
@@ -65,16 +65,15 @@ class ProductCard extends StatelessWidget {
                     color: Colors.red,
                   ),
                   onPressed: () {
-                    homeBloc.add(HomeAddItemToWishListButtonEvent(
-                        clickedProduct: product));
+                    /*homeBloc.add(HomeAddItemToWishListButtonEvent(
+                        clickedProduct: product));*/
                   },
                 ),
                 IconButton(
                   icon: const Icon(Icons.add_shopping_cart),
                   onPressed: () {
-                    homeBloc.add(
-                      HomeAddItemToCartListButtonEvent(clickedProduct: product),
-                    );
+                    /*homeBloc.add(HomeProductCartButtonClickedEvent(
+                        clickedProduct: product));*/
                   },
                 ),
               ],

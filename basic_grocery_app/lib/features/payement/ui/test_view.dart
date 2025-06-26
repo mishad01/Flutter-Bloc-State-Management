@@ -1,4 +1,4 @@
-import 'package:basic_grocery_app/utils/app_scaffol.dart';
+import 'package:basic_grocery_app/utils/app_scaffold.dart';
 import 'package:flutter/material.dart';
 
 class TestView extends StatefulWidget {

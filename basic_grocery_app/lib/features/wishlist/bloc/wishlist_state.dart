@@ -8,3 +8,8 @@ abstract class WishlistActionState extends WishlistState {}
 final class WishlistInitial extends WishlistState {}
 
 class WishlistTestViewNavigationState extends WishlistActionState {}
+
+class WishListSuccessState extends WishlistState {
+  final List<ProductDataModel> wishListItem;
+  WishListSuccessState({required this.wishListItem});
+}

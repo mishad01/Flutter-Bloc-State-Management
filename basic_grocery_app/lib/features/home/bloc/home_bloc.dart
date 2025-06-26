@@ -1,4 +1,6 @@
+import 'package:basic_grocery_app/data/cart_items.dart';
 import 'package:basic_grocery_app/data/grocery_data.dart';
+import 'package:basic_grocery_app/data/wishlist_items.dart';
 import 'package:basic_grocery_app/features/home/model/product_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -12,7 +14,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(HomeInitial());
     });
 
-    on<LoadGroceryDataEvent>((event, emit) async {
+    on<HomeLoadGroceryDataEvent>((event, emit) async {
       emit(HomeLoadingState()); // Show loading UI immediately
       await Future.delayed(Duration(seconds: 2));
       emit(GroceryLoadSuccessState(
@@ -36,6 +38,21 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeCartListNavigationButtonEvent>(
       (event, emit) {
         emit(HomeCartListNavigateState());
+      },
+    );
+    on<HomeAddItemToCartListButtonEvent>(
+      (event, emit) {
+        print("Wish icon clicked");
+        cartItems.add(event.clickedProduct);
+        emit(HomeAddProductToCartListState());
+      },
+    );
+
+    on<HomeAddItemToWishListButtonEvent>(
+      (event, emit) {
+        print("Wish icon clicked");
+        wishListItems.add(event.clickedProduct);
+        emit(HomeAddProductToWishListState());
       },
     );
   }

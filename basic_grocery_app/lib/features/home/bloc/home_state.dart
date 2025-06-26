@@ -19,3 +19,7 @@ final class GroceryLoadSuccessState extends HomeState {
 final class HomeWishlistNavigateState extends HomeActionState {}
 
 final class HomeCartListNavigateState extends HomeActionState {}
+
+final class HomeAddProductToCartListState extends HomeActionState {}
+
+final class HomeAddProductToWishListState extends HomeActionState {}
