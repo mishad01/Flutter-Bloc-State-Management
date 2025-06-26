@@ -61,12 +61,11 @@ class CartCard extends StatelessWidget {
               children: [
                 IconButton(
                   icon: Icon(
-                    Icons.favorite_border,
+                    Icons.delete_outline,
                     color: Colors.red,
                   ),
                   onPressed: () {
-                    /*homeBloc.add(HomeAddItemToWishListButtonEvent(
-                        clickedProduct: product));*/
+                    cartBloc.add(CartItemRemoveEvent(product: product));
                   },
                 ),
                 IconButton(

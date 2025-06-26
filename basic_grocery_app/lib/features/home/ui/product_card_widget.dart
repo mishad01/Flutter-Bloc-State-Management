@@ -1,3 +1,4 @@
+import 'package:basic_grocery_app/data/wishlist_items.dart';
 import 'package:basic_grocery_app/features/home/bloc/home_bloc.dart';
 import 'package:basic_grocery_app/features/home/model/product_model.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,9 @@ class ProductCard extends StatelessWidget {
               children: [
                 IconButton(
                   icon: Icon(
-                    Icons.favorite_border,
+                    wishListItems.contains(product)
+                        ? Icons.favorite
+                        : Icons.favorite_border,
                     color: Colors.red,
                   ),
                   onPressed: () {

@@ -33,6 +33,14 @@ class _CartViewState extends State<CartView> {
       listener: (context, state) {
         if (state is CartPaymentViewNavigateState) {
           AppNavigator.pushTo(context, const PaymentView());
+        } else if (state is CartItemRemoveState) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              'Item removed',
+              style: TextStyle(color: Colors.black),
+            ),
+            backgroundColor: Colors.green,
+          ));
         }
       },
       builder: (context, state) {

@@ -9,7 +9,7 @@ class CartPaymentButtonEvent extends CartEvent {}
 
 class CartItemFetchEvent extends CartEvent {}
 
-/*class CartAddItemEvent extends CartEvent {
+class CartItemRemoveEvent extends CartEvent {
   final ProductDataModel product;
-  CartAddItemEvent({required this.product});
-}*/
+  CartItemRemoveEvent({required this.product});
+}

@@ -23,5 +23,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(CartSuccessState(cartItems: cartItems));
       },
     );
+
+    on<CartItemRemoveEvent>(
+      (event, emit) {
+        cartItems.remove(event.product);
+        emit(CartSuccessState(cartItems: cartItems));
+        emit(CartItemRemoveState());
+      },
+    );
   }
 }
