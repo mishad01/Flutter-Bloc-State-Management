@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:crud_app_using_bloc/model/product_model.dart';
 import 'package:meta/meta.dart';
 
 part 'home_event.dart';
@@ -13,6 +14,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeToAddViewNavigateEvent>(
       (event, emit) {
         emit(HomeToAddViewNavigateState());
+      },
+    );
+
+    on<HomeToUpdateViewNavigateEvent>(
+      (event, emit) {
+        emit(HomeToUpdateViewNavigateState(event.product));
       },
     );
   }

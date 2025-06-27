@@ -3,6 +3,7 @@ import 'package:crud_app_using_bloc/utils/app_navigator.dart';
 import 'package:crud_app_using_bloc/view/add/add_view.dart';
 import 'package:crud_app_using_bloc/view/home/bloc/home_bloc.dart';
 import 'package:crud_app_using_bloc/view/product/product_bloc.dart';
+import 'package:crud_app_using_bloc/view/update/update_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,6 +41,20 @@ class _HomeViewState extends State<HomeView> {
           listener: (context, state) {
             if (state is HomeToAddViewNavigateState) {
               AppNavigator.pushTo(context, AddView());
+            } else if (state is HomeToUpdateViewNavigateState) {
+              AppNavigator.pushTo(
+                context,
+                UpdateView(
+                  name: state.product.productName ?? '',
+                  code: state.product.productCode ?? '',
+                  img: state.product.img ?? '',
+                  unitPrice: state.product.unitPrice ?? '',
+                  qty: state.product.qty ?? '',
+                  totalPrice: state.product.totalPrice ?? '',
+                  createdDate: state.product.createdDate ?? '',
+                  sId: state.product.sId ?? '',
+                ),
+              );
             }
           },
         ),
@@ -70,26 +85,36 @@ class _HomeViewState extends State<HomeView> {
                         borderRadius: BorderRadius.circular(12)),
                     elevation: 2,
                     child: ListTile(
+                      contentPadding: const EdgeInsets.all(12),
                       leading: const CircleAvatar(
                         backgroundColor: Colors.blueAccent,
                         child: Icon(Icons.inventory_2, color: Colors.white),
                       ),
-                      title: Text(product.productName ?? "No name"),
-                      subtitle:
-                          Text("৳ ${product.unitPrice?.toString() ?? "N/A"}"),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
+                      title: Text(product.productName ?? "No name",
+                          style: const TextStyle(fontWeight: FontWeight.bold)),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Code: ${product.productCode ?? 'N/A'}"),
+                          Text("Unit Price: ৳${product.unitPrice ?? 'N/A'}"),
+                          Text("Quantity: ${product.qty ?? 'N/A'}"),
+                          Text("Total Price: ৳${product.totalPrice ?? 'N/A'}"),
+                        ],
+                      ),
+                      trailing: Wrap(
+                        //mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           IconButton(
                             icon: const Icon(Icons.edit, color: Colors.green),
                             onPressed: () {
-                              // TODO: Handle Edit logic
+                              homeBloc
+                                  .add(HomeToUpdateViewNavigateEvent(product));
                             },
                           ),
                           IconButton(
                             icon: const Icon(Icons.delete, color: Colors.red),
                             onPressed: () {
-                              // TODO: Handle Delete logic
+                              productBloc.add(ProductDeleteEvent(product.sId!));
                             },
                           ),
                         ],
