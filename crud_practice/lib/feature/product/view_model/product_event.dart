@@ -9,3 +9,5 @@ final class ProductDeleteEvent extends ProductEvent {
   final String id;
   ProductDeleteEvent({required this.id});
 }
+
+final class ProductViewToAddViewNavigationEvent extends ProductEvent {}

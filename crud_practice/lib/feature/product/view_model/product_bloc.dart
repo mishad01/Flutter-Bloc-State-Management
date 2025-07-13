@@ -16,6 +16,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ProductBloc() : super(ProductInitial()) {
     on<ProductFetchEvent>(_productFetchEvent);
     on<ProductDeleteEvent>(_productDeleteEvent);
+    on<ProductViewToAddViewNavigationEvent>(
+      (event, emit) {
+        emit(ProductViewToAddViewNavigation());
+      },
+    );
   }
   FutureOr<void> _productFetchEvent(
       ProductFetchEvent event, Emitter<ProductState> emit) async {

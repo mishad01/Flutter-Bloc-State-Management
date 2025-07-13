@@ -1,3 +1,5 @@
+import 'package:crud_practice/core/utils/app_navigator.dart';
+import 'package:crud_practice/feature/add_product/view/add_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,7 +30,11 @@ class _ProductViewState extends State<ProductView> {
       bloc: productBloc,
       listenWhen: (previous, current) => current is ProductActionState,
       buildWhen: (previous, current) => true,
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is ProductViewToAddViewNavigation) {
+          AppNavigator.pushTo(context, AddView());
+        }
+      },
       builder: (context, state) {
         if (state is ProductLoadingState) {
           return BaseScaffold(
@@ -40,7 +46,9 @@ class _ProductViewState extends State<ProductView> {
                 context,
                 "Crud App Using Bloc",
                 icon: Icons.add,
-                onTap: () {},
+                onTap: () {
+                  productBloc.add(ProductViewToAddViewNavigationEvent());
+                },
               ),
               widget: ListView.builder(
                 itemCount: productList.length,

@@ -28,3 +28,5 @@ final class ProductDeleteLoadingState extends ProductState {
   final String id;
   ProductDeleteLoadingState({required this.id});
 }
+
+final class ProductViewToAddViewNavigation extends ProductActionState {}
