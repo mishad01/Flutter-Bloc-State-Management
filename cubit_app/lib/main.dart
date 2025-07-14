@@ -1,10 +1,11 @@
 import 'package:cubit_counter_app/cubit/counter/counter_cubit.dart';
 import 'package:cubit_counter_app/cubit/crud/person_cubit.dart';
 import 'package:cubit_counter_app/cubit/image_picker/image_cubit.dart';
+import 'package:cubit_counter_app/cubit/navigation/navigation_cubit.dart';
 import 'package:cubit_counter_app/cubit/search/player_cubit.dart';
 import 'package:cubit_counter_app/cubit/theme/theme_cubit.dart';
 import 'package:cubit_counter_app/cubit/theme/theme_state.dart';
-import 'package:cubit_counter_app/view/theme_view.dart';
+import 'package:cubit_counter_app/view/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,6 +24,7 @@ void main() {
             return themeCubit;
           },
         ),
+        BlocProvider<NavigationCubit>(create: (_) => NavigationCubit()),
       ],
       child: const MyApp(),
     ),
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: 'Flutter Demo',
           theme: state.themeData,
-          home: ThemeView(),
+          home: BottomNavBar(),
         );
       },
     );
