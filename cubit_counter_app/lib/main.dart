@@ -1,5 +1,7 @@
-import 'package:cubit_counter_app/cubit/counter_cubit.dart';
-import 'package:cubit_counter_app/cubit/counter_state.dart';
+import 'package:cubit_counter_app/cubit/counter/counter_cubit.dart';
+import 'package:cubit_counter_app/cubit/counter/counter_state.dart';
+import 'package:cubit_counter_app/cubit/search/player_cubit.dart';
+import 'package:cubit_counter_app/search_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,9 +18,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: BlocProvider(
-        create: (context) => CounterCubit(),
-        child: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider<CounterCubit>(create: (context) => CounterCubit()),
+          BlocProvider<PlayerCubit>(create: (context) => PlayerCubit()),
+        ],
+        child: SearchListView(), // or any widget that uses both cubits
       ),
     );
   }
