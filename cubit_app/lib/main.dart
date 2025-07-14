@@ -1,7 +1,8 @@
 import 'package:cubit_counter_app/cubit/counter/counter_cubit.dart';
+import 'package:cubit_counter_app/cubit/crud/person_cubit.dart';
 import 'package:cubit_counter_app/cubit/image_picker/image_cubit.dart';
 import 'package:cubit_counter_app/cubit/search/player_cubit.dart';
-import 'package:cubit_counter_app/view/image_picker_view.dart';
+import 'package:cubit_counter_app/view/basic_crud_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,8 +24,9 @@ class MyApp extends StatelessWidget {
           BlocProvider<CounterCubit>(create: (context) => CounterCubit()),
           BlocProvider<PlayerCubit>(create: (context) => PlayerCubit()),
           BlocProvider<ImageCubit>(create: (context) => ImageCubit()),
+          BlocProvider<PersonCubit>(create: (context) => PersonCubit()),
         ],
-        child: ImagePickerView(),
+        child: BasicCrudView(),
       ),
     );
   }
