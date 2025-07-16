@@ -34,7 +34,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             destinations: const [
               NavigationDestination(
                 icon: Icon(Icons.home_outlined),
-                label: 'Counter App',
+                label: 'Counter',
                 selectedIcon: Icon(Icons.home),
               ),
               NavigationDestination(
